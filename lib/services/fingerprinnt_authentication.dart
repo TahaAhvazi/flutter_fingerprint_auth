@@ -13,6 +13,8 @@ class FingerPrintAuthentication {
   }
 
   static Future<bool> authenticateFunction() async {
+    final isAvailiable = await supportBiometric();
+    if (!isAvailiable) return false;
     try {
       return await authenticate.authenticate(
           localizedReason: 'Hello, please authenticate with fingerprint',
@@ -20,6 +22,7 @@ class FingerPrintAuthentication {
             useErrorDialogs: true,
           ));
     } on PlatformException {
+      print("EEEEEEEEEEEEror");
       return false;
     }
   }
